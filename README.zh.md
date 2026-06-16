@@ -98,6 +98,7 @@ v0.2 包含：
 - `topk_metrics.csv`
 - `per_constraint_metrics.csv`
 - `feature_coefficients.csv`
+- `prompt_level_error_examples.csv`
 
 最终博客分析使用的 predictions 位于：
 
@@ -130,6 +131,30 @@ docker compose -f docker-compose.yml -f docker-compose.gpu.yml run --rm app pyte
 ```
 
 完整 target-model relabeling 需要本地模型权重和 vLLM 兼容 GPU 环境。当前发布的轻量 artifact 已足够检查报告中的 metrics 和 figures，不需要重新跑目标模型推理。
+
+## 复现已发布图片
+
+这里可以分成三种复现层级：
+
+1. 只跑测试：
+
+   ```bash
+   cd boundary-if
+   docker compose build app
+   docker compose run --rm app pytest
+   ```
+
+2. 只根据 v0.2 artifact 表格重画核心图片；这条命令从仓库根目录运行：
+
+   ```bash
+   docker compose -f boundary-if/docker-compose.yml run --rm -v "${PWD}:/publish" -w /publish app python scripts/reproduce_published_figures.py
+   ```
+
+   输出会写入 `reproduced_figures/`，该目录已被 git 忽略。
+
+3. 完整 relabeling：
+
+   这一步需要本地 Qwen3-4B-Instruct-2507 权重、vLLM 兼容 GPU，以及原始 prompt 数据。检查本文报告的 metrics 和 figures 不需要重跑这一步，因为 v0.2 artifact 已包含所需的表格、predictions 和 split manifests。
 
 ## 博客
 

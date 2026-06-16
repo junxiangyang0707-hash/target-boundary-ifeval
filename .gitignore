@@ -49,6 +49,7 @@ data/private/
 chatlog*.md
 blog_embedded.md
 *.zip
+reproduced_figures/
 
 # OS/editor
 .DS_Store

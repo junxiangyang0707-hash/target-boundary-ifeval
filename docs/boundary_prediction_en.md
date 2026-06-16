@@ -255,7 +255,26 @@ This supports a more cautious interpretation: the boundary is compressible, but 
 
 ## Error Analysis
 
-The current artifact does not include a hand-audited prompt-level error table, so I do not want to invent individual examples here. Still, the aggregate results point to a few concrete error modes.
+The v0.2 artifact includes a small prompt-level error table in `results/tables/prompt_level_error_examples.csv`. To keep redistribution low-risk, this table intentionally shows prompt IDs and constraint metadata, not prompt text or target-model outputs.
+
+The rows below are sampled from strict atomic held-out test predictions for M3 mean full, with probabilities averaged across available seeds.
+
+| Case | Group | Outcome | Prompt ID | y / pred | p(pass) | Constraint focus |
+|---|---|---|---|---:|---:|---|
+| E01 | High-confidence TP | TP | `26dea49c30ad` | 1 / 1 | 0.9678 | `detectable_format:title` |
+| E02 | High-confidence TP | TP | `5761bb80f022` | 1 / 1 | 0.9678 | `detectable_format:title`<br>`keywords:existence` |
+| E03 | High-confidence FP | FP | `d9018ce1fea1` | 0 / 1 | 0.9685 | `detectable_format:title` |
+| E04 | High-confidence FP | FP | `a1ce25f3bf94` | 0 / 1 | 0.9678 | `keywords:no_adjacent_consecutive` |
+| E05 | High-confidence FN | FN | `2366118e2d10` | 1 / 0 | 0.0056 | `keywords:no_adjacent_consecutive`<br>`startend:end_checker`<br>`first_word:first_word_answer`<br>`count:count_unique` |
+| E06 | High-confidence FN | FN | `a30db5774417` | 1 / 0 | 0.0066 | `keywords:word_once`<br>`detectable_format:square_brackets` |
+| E07 | High-confidence TN | TN | `1a2e9298819a` | 0 / 0 | 0.0024 | `copy:copying_simple`<br>`count:counting_composition`<br>`count:lowercase_counting`<br>`keywords:no_adjacent_consecutive` |
+| E08 | High-confidence TN | TN | `c75e06ed4605` | 0 / 0 | 0.0024 | `copy:copying_multiple`<br>`count:counting_composition` |
+| E09 | Hard constraint | FN | `419aff8c6a8d` | 1 / 0 | 0.0375 | `length_constraints:nth_paragraph_first_word` |
+| E10 | Hard constraint | FN | `d6f46faf5733` | 1 / 0 | 0.0290 | `detectable_format:sentence_hyphens` |
+| E11 | Hard constraint | FN | `67373ef5b455` | 1 / 0 | 0.0074 | `copy:copying_multiple` |
+| E12 | Hard constraint | FN | `795d30a9ea1e` | 1 / 0 | 0.0463 | `first_word:first_word_sent` |
+
+These examples are not a substitute for reading the original prompts locally, but they make the aggregate story easier to inspect: the model is confident in some surface-format regions, can be overconfident on familiar-looking constraints, and can under-rank rare or structured constraints even when the target model passes.
 
 | Mode | Evidence in this run | Interpretation |
 |---|---|---|
@@ -263,8 +282,6 @@ The current artifact does not include a hand-audited prompt-level error table, s
 | False-positive risk | Keyword and punctuation fragments can look easy to a prompt-only model | A prompt may contain familiar pass-associated wording, while the target model still misses an exact count, required token, or formatting detail. |
 | False-negative risk | Rare held-out atomic constraints have little direct training support | The boundary model may down-rank unfamiliar constraint phrasings even when the target model happens to comply. |
 | Genuine hard cases | `copy:copying_multiple` and `length_constraints:nth_paragraph_first_word` remain difficult | These tasks require more structured response behavior than simple surface cues can reliably predict. |
-
-For a more complete public benchmark, the next addition should be a small table of real prompt-level cases from `predictions.parquet`: high-confidence true positives, false positives, false negatives, and a few hard constraint-specific examples. That would make the aggregate story more inspectable without changing the headline metric.
 
 ## Exploratory Results
 

@@ -106,6 +106,7 @@ Core tables are in `results/tables/`:
 - `topk_metrics.csv`
 - `per_constraint_metrics.csv`
 - `feature_coefficients.csv`
+- `prompt_level_error_examples.csv`
 
 Predictions used for the final blog analyses are in:
 
@@ -140,6 +141,35 @@ docker compose -f docker-compose.yml -f docker-compose.gpu.yml run --rm app pyte
 Full target-model relabeling requires local model weights and a vLLM-compatible
 GPU environment. The lightweight published artifacts are sufficient to inspect
 the reported metrics and figures without rerunning target-model inference.
+
+## Reproduce Published Figures
+
+There are three useful levels of reproduction:
+
+1. Run tests only:
+
+   ```bash
+   cd boundary-if
+   docker compose build app
+   docker compose run --rm app pytest
+   ```
+
+2. Redraw the core published figures from the v0.2 artifact tables, from the
+   repository root:
+
+   ```bash
+   docker compose -f boundary-if/docker-compose.yml run --rm -v "${PWD}:/publish" -w /publish app python scripts/reproduce_published_figures.py
+   ```
+
+   This writes regenerated figures to `reproduced_figures/`, which is ignored
+   by git.
+
+3. Full relabeling:
+
+   This requires local Qwen3-4B-Instruct-2507 weights, a vLLM-compatible GPU,
+   and the original prompt data. It is not required for checking the reported
+   metrics or figures because the v0.2 artifact includes the needed tables,
+   predictions, and split manifests.
 
 ## Blog
 
