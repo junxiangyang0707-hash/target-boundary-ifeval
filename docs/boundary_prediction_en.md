@@ -255,7 +255,7 @@ This supports a more cautious interpretation: the boundary is compressible, but 
 
 ## Error Analysis
 
-The v0.2 artifact includes a small prompt-level error table in `results/tables/prompt_level_error_examples.csv`. To keep redistribution low-risk, this table intentionally shows prompt IDs and constraint metadata, not prompt text or target-model outputs.
+The v0.2 artifact includes a small prompt-level error table in `results/tables/prompt_level_error_examples.csv`. The CSV and README now include the evaluated input prompt and target-model response for these 12 selected examples; the compact table below keeps only metadata so the blog remains readable.
 
 The rows below are sampled from strict atomic held-out test predictions for M3 mean full, with probabilities averaged across available seeds.
 

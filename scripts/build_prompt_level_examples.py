@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -10,6 +11,7 @@ PREDICTIONS = ROOT / "results/predictions/strict_atomic_blog_predictions.parquet
 SPLIT = ROOT / "data/splits/atomic_constraint_heldout_seed42.parquet"
 PER_CONSTRAINT = ROOT / "results/tables/per_constraint_metrics.csv"
 OUT = ROOT / "results/tables/prompt_level_error_examples.csv"
+GENERATION_ROOT_ENV = "BOUNDARY_IF_GENERATIONS_ROOT"
 
 
 def instruction_text(value: object) -> str:
@@ -20,6 +22,12 @@ def instruction_text(value: object) -> str:
         if isinstance(items, (list, tuple)):
             return "|".join(str(item) for item in items)
     return str(value)
+
+
+def normalize_multiline_text(value: object) -> str:
+    if value is None:
+        return ""
+    return "\n".join(line.rstrip() for line in str(value).splitlines())
 
 
 def outcome(row: pd.Series) -> str:
@@ -41,6 +49,72 @@ def append_unique(rows: list[pd.Series], candidates: pd.DataFrame, n: int) -> No
         seen.add(row["prompt_id"])
         if len([r for r in rows if r["case_group"] == row["case_group"]]) >= n:
             break
+
+
+def candidate_generation_roots() -> list[Path]:
+    roots: list[Path] = []
+    env_value = os.environ.get(GENERATION_ROOT_ENV)
+    if env_value:
+        roots.append(Path(env_value))
+    roots.extend(
+        [
+            ROOT.parent / "boundary-if/data/generations",
+            Path("/workspace/data/generations"),
+        ]
+    )
+    unique: list[Path] = []
+    for root in roots:
+        resolved = root.expanduser()
+        if resolved not in unique:
+            unique.append(resolved)
+    return unique
+
+
+def load_prompt_responses(prompt_ids: set[str]) -> pd.DataFrame:
+    rows: list[pd.DataFrame] = []
+    for generation_root in candidate_generation_roots():
+        if not generation_root.exists():
+            continue
+        for path in sorted(generation_root.glob("qwen3_4b_instruct_2507_under2048_*_max2048/outputs.parquet")):
+            part = pd.read_parquet(path, columns=["prompt_id", "user_prompt", "response_text"])
+            part = part[part["prompt_id"].isin(prompt_ids)].copy()
+            if part.empty:
+                continue
+            rows.append(part)
+        if rows:
+            break
+    if not rows:
+        return pd.DataFrame(columns=["prompt_id", "input_prompt", "model_response"])
+    text = pd.concat(rows, ignore_index=True).drop_duplicates("prompt_id", keep="first")
+    for col in ["user_prompt", "response_text"]:
+        text[col] = text[col].map(normalize_multiline_text)
+    return text.rename(columns={"user_prompt": "input_prompt", "response_text": "model_response"})[
+        ["prompt_id", "input_prompt", "model_response"]
+    ]
+
+
+def load_existing_prompt_responses() -> pd.DataFrame:
+    if not OUT.exists():
+        return pd.DataFrame(columns=["prompt_id", "input_prompt", "model_response"])
+    existing = pd.read_csv(OUT)
+    wanted = ["prompt_id", "input_prompt", "model_response"]
+    if not set(wanted).issubset(existing.columns):
+        return pd.DataFrame(columns=wanted)
+    existing = existing[wanted].copy()
+    for col in ["input_prompt", "model_response"]:
+        existing[col] = existing[col].map(normalize_multiline_text)
+    return existing
+
+
+def add_prompt_responses(table: pd.DataFrame) -> pd.DataFrame:
+    prompt_ids = set(table["prompt_id"].astype(str))
+    text = load_prompt_responses(prompt_ids)
+    if text.empty:
+        text = load_existing_prompt_responses()
+    table = table.merge(text, on="prompt_id", how="left")
+    for col in ["input_prompt", "model_response"]:
+        table[col] = table[col].fillna("")
+    return table
 
 
 def main() -> None:
@@ -129,6 +203,7 @@ def main() -> None:
     table["prompt_id_short"] = table["prompt_id"].str.slice(0, 12)
     table["p_pass_mean"] = table["p_pass_mean"].round(4)
     table["p_pass_std"] = table["p_pass_std"].round(4)
+    table = add_prompt_responses(table)
     table = table[
         [
             "case_id",
@@ -148,6 +223,8 @@ def main() -> None:
             "constraint_family_signature",
             "source_dataset",
             "base_key",
+            "input_prompt",
+            "model_response",
             "case_note",
         ]
     ]
