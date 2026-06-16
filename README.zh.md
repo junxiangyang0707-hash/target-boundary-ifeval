@@ -1,3 +1,5 @@
+导航：[English home](README.md) | **中文 README** | [English blog](docs/boundary_prediction_en.md) | [中文博客](docs/boundary_prediction_zh.md) | [Data Card](DATA_CARD.md) | [Model Card](MODEL_CARD.md) | [Attribution](ATTRIBUTION.md)
+
 # IFEval 风格检查下的目标模型边界预测
 
 这是一个可复现实验工程和技术博客材料库，用于整理一个小型边界模型研究。
