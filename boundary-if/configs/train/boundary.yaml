@@ -1,0 +1,22 @@
+name: boundary
+seed: ${seed}
+input_version: X1_raw_prompt
+label_name: loose_pass
+budget: full_train
+budget_values: [128, 256, 512, 1024, 2048, 4096, full_train]
+sampling_stratify:
+  - num_constraints
+  - constraint_family_signature
+mode: frozen_encoder_head
+supported_modes:
+  - frozen_encoder_head
+  - unfreeze_last_block
+  - supervised_only
+batch_size: 256
+epochs: 50
+learning_rate: 0.0003
+head_learning_rate: 0.001
+weight_decay: 0.01
+early_stopping_patience: 5
+loss: bce_with_logits
+soft_labels: false

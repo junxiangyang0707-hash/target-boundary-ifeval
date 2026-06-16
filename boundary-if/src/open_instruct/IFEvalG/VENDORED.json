@@ -1,0 +1,11 @@
+{
+  "source": "allenai/open-instruct open_instruct/IFEvalG",
+  "source_url": "https://github.com/allenai/open-instruct/tree/main/open_instruct/IFEvalG",
+  "commit": "unknown",
+  "files": [
+    "instructions.py",
+    "instructions_registry.py",
+    "instructions_util.py"
+  ],
+  "license": "Apache-2.0 headers preserved in vendored files"
+}

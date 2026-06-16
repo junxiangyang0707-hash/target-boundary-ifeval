@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+title: "Target Boundary Prediction for IFEval-Style Checks"
+message: "If you use this repository, please cite the repository and the original IFEval paper."
+type: software
+authors:
+  - family-names: Young
+    given-names: Jason
+repository-code: "https://github.com/junxiangyang0707-hash/target-boundary-ifeval"
+license: Apache-2.0
+keywords:
+  - instruction following
+  - IFEval
+  - boundary prediction
+  - selective prediction
+  - calibration
+references:
+  - type: article
+    title: "Instruction-Following Evaluation for Large Language Models"
+    authors:
+      - family-names: Zhou
+        given-names: Jeffrey
+      - family-names: Lu
+        given-names: Tianjian
+      - family-names: Mishra
+        given-names: Swaroop
+      - family-names: Brahma
+        given-names: Siddhartha
+      - family-names: Basu
+        given-names: Sujoy
+      - family-names: Luan
+        given-names: Yi
+      - family-names: Zhou
+        given-names: Denny
+      - family-names: Hou
+        given-names: Le
+    year: 2023
+    identifiers:
+      - type: arxiv
+        value: "2311.07911"

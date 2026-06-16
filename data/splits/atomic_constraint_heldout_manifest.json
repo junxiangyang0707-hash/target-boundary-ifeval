@@ -1,0 +1,72 @@
+{
+  "selection": {
+    "seed": 42,
+    "heldout_min_frequency": 500,
+    "heldout_max_frequency_quantile": 0.9,
+    "heldout_max_frequency": 5195,
+    "heldout_min_family_frequency": 5000,
+    "heldout_fraction": 0.1,
+    "avoid_extreme_special_constraints": true,
+    "candidate_instruction_count": 44,
+    "selected_instruction_count": 4
+  },
+  "heldout_instruction_ids": [
+    {
+      "instruction_id": "copy:copy",
+      "frequency": 1782,
+      "family": "copy",
+      "family_frequency": 10421
+    },
+    {
+      "instruction_id": "detectable_format:title",
+      "frequency": 5175,
+      "family": "detectable_format",
+      "family_frequency": 39394
+    },
+    {
+      "instruction_id": "keywords:no_adjacent_consecutive",
+      "frequency": 5149,
+      "family": "keywords",
+      "family_frequency": 56545
+    },
+    {
+      "instruction_id": "length_constraints:nth_paragraph_first_word",
+      "frequency": 5118,
+      "family": "length_constraints",
+      "family_frequency": 20254
+    }
+  ],
+  "created_at": "2026-06-05T12:46:18.363985+00:00",
+  "split_name": "atomic_constraint_heldout_seed42",
+  "split_type": "atomic_constraint_heldout",
+  "split_counts": {
+    "test": 16272,
+    "train": 71190,
+    "val": 7911
+  },
+  "num_constraints_by_split": {
+    "test": {
+      "1": 1663,
+      "2": 3270,
+      "3": 4620,
+      "4": 4510,
+      "5": 2209
+    },
+    "train": {
+      "1": 19210,
+      "2": 18566,
+      "3": 16831,
+      "4": 12178,
+      "5": 4405
+    },
+    "val": {
+      "1": 2134,
+      "2": 2067,
+      "3": 1871,
+      "4": 1350,
+      "5": 489
+    }
+  },
+  "test_candidate_rows": 16272,
+  "train_val_candidate_rows": 79101
+}

@@ -1,0 +1,8 @@
+name: ngram_logreg
+type: sklearn_logistic_regression
+char_ngram_range: [3, 5]
+word_ngram_range: [1, 2]
+max_features: 500000
+min_df: 2
+max_iter: 2000
+class_weight: balanced

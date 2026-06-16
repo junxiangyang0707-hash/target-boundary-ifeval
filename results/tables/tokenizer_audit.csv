@@ -1,0 +1,3 @@
+tokenizer_protocol,vocab_size,fit_prompt_count,fit_split,row_count,mean_token_length,p95_token_length,max_token_length,truncation_rate,test_token_ids_unseen_in_atomic_train,test_token_mass_unseen_in_atomic_train
+old_group_key,8000,,group_key train,82806,227.87305267734223,577.0,5786,0.0024273603362075214,3,1.7770964258444319e-06
+strict_atomic_train,8000,61655.0,atomic train,82806,227.99301982948094,577.0,5527,0.002415283916624399,3,1.7704907003500556e-06

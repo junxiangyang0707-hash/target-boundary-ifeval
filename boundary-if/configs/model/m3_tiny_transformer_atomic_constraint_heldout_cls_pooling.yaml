@@ -1,0 +1,50 @@
+name: m3_tiny_transformer_atomic_constraint_heldout_cls_pooling
+model_id: M3
+type: prompt_bidirectional_encoder_pooling_mlp
+input_file: data/tokenized/if_multi_constraints_upto5.qwen3_4b_instruct_2507.under2048_nontruncated.atomic_constraint_heldout_seed42.raw_prompt_byte_bpe_v8k.max2048.parquet
+output_dir: runs/m3_tiny_transformer_cls_pooling_atomic_constraint_heldout_seed42
+
+input_view: raw_prompt_bpe
+target_label: checker_pass
+pipeline:
+  input: prompt
+  encoder: bidirectional_transformer_encoder
+  pooling: cls
+  head: mlp
+  output: P_T(pass)
+train_split: train
+eval_splits:
+  - val
+  - test
+selection_split: val
+selection_metric: auprc
+
+tokenizer:
+  type: byte_level_bpe
+  vocab_size: 8000
+  pad_token_id: null
+
+architecture:
+  max_length: 2048
+  hidden_size: 128
+  layers: 4
+  heads: 4
+  ffn_dim: 512
+  dropout: 0.1
+  pooling: cls
+  classifier_hidden_size: 128
+
+training:
+  seed: 42
+  epochs: 10
+  batch_size: 64
+  eval_batch_size: 128
+  optimizer: AdamW
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  warmup_ratio: 0.06
+  grad_clip_norm: 1.0
+  class_balance: pos_weight
+  early_stop_patience: 3
+  threshold: 0.5
+  amp: auto_cuda

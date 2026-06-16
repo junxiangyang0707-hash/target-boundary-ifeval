@@ -1,0 +1,10 @@
+name: simple_features_logreg
+type: sklearn_logistic_regression
+features:
+  - prompt_length
+  - constraint_text_length
+  - num_constraints
+  - num_instruction_ids
+  - num_unique_constraint_families
+max_iter: 2000
+class_weight: balanced

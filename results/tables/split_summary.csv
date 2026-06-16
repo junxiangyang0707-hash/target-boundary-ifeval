@@ -1,0 +1,5 @@
+split_name,train_rows,val_rows,test_rows,test_positive_rate,baseline_AUPRC,heldout_unit
+group-key split,66245,8280,8281,0.29718633,0.29718633,base_key
+atomic constraint held-out,61655,6851,14300,0.14811189,0.14811189,instruction_id
+composition C1,61388,15501,5917,0.04664526,0.04664526,num_constraints
+composition C2,76889,1183,4734,0.04562738,0.04562738,num_constraints

@@ -1,0 +1,14 @@
+enabled: true
+project: ${oc.env:WANDB_PROJECT,boundary-if}
+entity: null
+mode: ${oc.env:WANDB_MODE,online}
+dir: ${oc.env:WANDB_DIR,/workspace/runs/wandb}
+group: ${target.id}/${split.name}
+job_type: ${train.name}
+name: null
+tags:
+  - boundary-if
+  - ${target.short_name}
+  - ${split.name}
+  - ${model.name}
+log_code: false

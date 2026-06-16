@@ -1,0 +1,11 @@
+name: atomic_constraint_heldout_seed42
+type: atomic_constraint_heldout
+seed: 42
+heldout_min_frequency: 500
+heldout_max_frequency_quantile: 0.9
+heldout_min_family_frequency: 5000
+heldout_fraction: 0.1
+val_fraction_from_train_candidate: 0.1
+avoid_extreme_special_constraints: true
+output_path: ${paths.splits_dir}/atomic_constraint_heldout_seed42.parquet
+manifest_path: ${paths.splits_dir}/atomic_constraint_heldout_manifest.json

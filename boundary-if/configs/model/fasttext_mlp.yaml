@@ -1,0 +1,7 @@
+name: fasttext_mlp
+type: torch_fasttext_mlp
+vocab_size: 8000
+embedding_dim: 128
+hidden_sizes: [256, 128]
+dropout: 0.1
+pooling: mean

@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: boundary-if:dev
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ./.cache/huggingface:/cache/huggingface
+      - wandb-cache:/cache/wandb
+    environment:
+      PROJECT_ROOT: /workspace
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: utf-8
+      HF_HOME: /cache/huggingface
+      WANDB_CACHE_DIR: /cache/wandb
+      WANDB_DIR: /workspace/runs/wandb
+      WANDB_MODE: online
+      WANDB_PROJECT: boundary-if
+      WANDB_BASE_URL: ${WANDB_BASE_URL:-https://api.wandb.ai}
+      WANDB_API_KEY: ${WANDB_API_KEY:-}
+    stdin_open: true
+    tty: true
+
+volumes:
+  wandb-cache:

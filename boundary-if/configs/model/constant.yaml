@@ -1,0 +1,3 @@
+name: constant_pass_rate
+type: baseline
+predictor: train_pass_rate

@@ -1,0 +1,32 @@
+name: if_multi_constraints_upto5
+hf_path: allenai/IF_multi_constraints_upto5
+hf_name: null
+hf_split: train
+revision: null
+cache_dir: ${runtime.hf_home}/datasets
+raw_dataset_dir: ${paths.raw_dir}/if_multi_constraints_upto5/${data.hf_split}.dataset
+raw_parquet_path: ${paths.raw_dir}/if_multi_constraints_upto5/${data.hf_split}.parquet
+raw_info_path: ${paths.raw_dir}/if_multi_constraints_upto5/${data.hf_split}.info.json
+raw_fields:
+  - key
+  - messages
+  - ground_truth
+  - dataset
+  - constraint_type
+  - constraint
+standard_fields:
+  - prompt_id
+  - base_key
+  - raw_messages
+  - user_prompt
+  - constraint_text
+  - ground_truth_spec
+  - instruction_ids
+  - constraint_signature
+  - constraint_family_signature
+  - num_constraints
+  - source_dataset
+  - constraint_type
+normalized_path: ${paths.promptsets_dir}/if_multi_constraints_upto5.normalized.parquet
+audit_path: ${paths.promptsets_dir}/if_multi_constraints_upto5.audit.json
+expected_num_rows: 95373

@@ -1,0 +1,11 @@
+id: phi4_mini_instruct
+short_name: phi4_mini
+model_name_or_path: microsoft/Phi-4-mini-instruct
+revision: null
+engine: transformers
+engine_version: null
+trust_remote_code: true
+torch_dtype: bfloat16
+device_map: auto
+chat_template: tokenizer_default
+system_prompt: ""

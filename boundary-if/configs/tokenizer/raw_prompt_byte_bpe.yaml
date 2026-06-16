@@ -1,0 +1,40 @@
+name: raw_prompt_byte_bpe_v8k
+type: byte_level_bpe
+input_view: raw_prompt_only
+
+source_path: ${paths.promptsets_dir}/if_multi_constraints_upto5.qwen3_4b_instruct_2507.under2048_nontruncated.all.parquet
+split_path: ${paths.splits_dir}/qwen3_4b_instruct_2507_under2048_nontruncated/group_key_seed42.parquet
+split_value: train
+text_column: user_prompt
+output_dir: ${paths.tokenized_dir}/tokenizers/raw_prompt_byte_bpe_v8k
+
+vocab_size: 8000
+min_frequency: 2
+batch_size: 8192
+deduplicate: false
+model_max_length: 2048
+
+byte_level:
+  add_prefix_space: false
+  trim_offsets: false
+  initial_alphabet: byte_level_alphabet
+
+normalizer: nfc
+special_tokens:
+  unk_token: <unk>
+  pad_token: <pad>
+  bos_token: <s>
+  eos_token: </s>
+  mask_token: <mask>
+  additional_special_tokens: []
+
+wandb:
+  enabled: true
+  mode: ${oc.env:WANDB_MODE,online}
+  project: ${oc.env:WANDB_PROJECT,boundary-if}
+  dir: ${oc.env:WANDB_DIR,/workspace/runs/wandb}
+  job_type: train_tokenizer
+  tags:
+    - tokenizer
+    - byte-level-bpe
+    - raw-prompt-only

@@ -1,0 +1,16 @@
+.git
+.gitignore
+.dockerignore
+data
+runs
+outputs
+wandb
+.hydra
+.cache
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.pytest_cache
+.ruff_cache
+.mypy_cache

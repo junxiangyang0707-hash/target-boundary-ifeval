@@ -1,0 +1,17 @@
+name: pretrain
+seed: ${seed}
+input_version: X2_constraint_focused
+max_len: ${model.max_len}
+batch_size: 512
+epochs: 50
+learning_rate: 0.0005
+weight_decay: 0.01
+early_stopping_patience: 5
+mixed_precision: ${runtime.mixed_precision}
+label_fields:
+  instruction_ids: instruction_ids
+  num_constraints: num_constraints
+outputs:
+  checkpoint_path: ${model.checkpoint_dir}/checkpoint.pt
+  config_path: ${model.checkpoint_dir}/config.yaml
+  metrics_path: ${model.checkpoint_dir}/pretrain_metrics.json

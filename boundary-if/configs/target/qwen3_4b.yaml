@@ -1,0 +1,11 @@
+id: qwen3_4b_instruct_2507
+short_name: qwen3_4b
+model_name_or_path: Qwen/Qwen3-4B-Instruct-2507
+revision: null
+engine: vllm
+engine_version: null
+trust_remote_code: true
+torch_dtype: bfloat16
+device_map: auto
+chat_template: tokenizer_default
+system_prompt: ""

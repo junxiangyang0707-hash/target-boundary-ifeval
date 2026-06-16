@@ -1,0 +1,16 @@
+name: composition_heldout_c2
+type: composition_heldout
+variant: c2
+seed: 42
+c1:
+  train_num_constraints: [1, 2, 3]
+  val_num_constraints: [4]
+  test_num_constraints: [5]
+c2:
+  train_num_constraints: [1, 2, 3, 4]
+  heldout_num_constraints: [5]
+  val_fraction_of_heldout: 0.2
+outputs:
+  c1: ${paths.splits_dir}/composition_heldout_c1.parquet
+  c2: ${paths.splits_dir}/composition_heldout_c2.parquet
+output_path: ${split.outputs.${split.variant}}

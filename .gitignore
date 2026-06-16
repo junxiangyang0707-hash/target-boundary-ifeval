@@ -1,0 +1,57 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Python and tooling
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Local experiment outputs and caches
+boundary-if/runs/
+boundary-if/data/
+boundary-if/outputs/
+boundary-if/wandb/
+boundary-if/.hydra/
+boundary-if/.cache/
+/.cache/
+/wandb/
+/runs/
+/outputs/
+
+# Large model/checkpoint artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.gguf
+/models/
+/hf_models/
+
+# Raw or private target outputs should not be committed by default.
+target_responses/
+raw_responses/
+data/raw/
+data/private/
+
+# Local project logs and generated bundles
+chatlog*.md
+blog_embedded.md
+*.zip
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

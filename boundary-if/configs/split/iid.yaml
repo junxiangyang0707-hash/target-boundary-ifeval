@@ -1,0 +1,12 @@
+name: iid_seed42
+type: iid_prompt
+seed: 42
+ratios:
+  train: 0.8
+  val: 0.1
+  test: 0.1
+group_key: prompt_id
+stratify:
+  - num_constraints
+  - constraint_family_signature
+output_path: ${paths.splits_dir}/iid_seed42.parquet

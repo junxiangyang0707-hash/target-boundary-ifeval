@@ -1,0 +1,25 @@
+name: default_eval
+metrics:
+  - auroc
+  - auprc
+  - brier
+  - ece
+  - accuracy_at_0_5
+  - balanced_accuracy
+  - log_loss
+group_metrics:
+  - num_constraints
+  - constraint_family_signature
+  - top_level_constraint_family
+  - prompt_length_bucket
+  - source_dataset
+  - constraint_type
+calibration:
+  n_bins: 15
+selective_prediction:
+  enabled: true
+  coverage_grid: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+error_analysis:
+  save_top_n: 200
+  uncertainty_low: 0.45
+  uncertainty_high: 0.55

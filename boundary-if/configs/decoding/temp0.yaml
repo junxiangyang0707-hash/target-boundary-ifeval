@@ -1,0 +1,7 @@
+id: temp0_max2048
+temperature: 0.0
+top_p: 1.0
+max_new_tokens: 2048
+do_sample: false
+num_return_sequences: 1
+sample_count: 1

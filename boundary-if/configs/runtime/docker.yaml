@@ -1,0 +1,7 @@
+name: docker
+python_utf8: true
+hf_home: ${oc.env:HF_HOME,/cache/huggingface}
+wandb_cache_dir: ${oc.env:WANDB_CACHE_DIR,/cache/wandb}
+device: auto
+num_workers: 4
+mixed_precision: bf16

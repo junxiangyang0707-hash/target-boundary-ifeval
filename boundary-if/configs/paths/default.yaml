@@ -1,0 +1,13 @@
+project_root: ${oc.env:PROJECT_ROOT,/workspace}
+data_dir: ${paths.project_root}/data
+raw_dir: ${paths.data_dir}/raw
+promptsets_dir: ${paths.data_dir}/promptsets
+splits_dir: ${paths.data_dir}/splits
+generations_dir: ${paths.data_dir}/generations
+checks_dir: ${paths.data_dir}/checks
+labels_dir: ${paths.data_dir}/labels
+tokenized_dir: ${paths.data_dir}/tokenized
+pretrained_dir: ${paths.data_dir}/pretrained
+reports_dir: ${paths.data_dir}/reports
+runs_dir: ${paths.project_root}/runs
+outputs_dir: ${paths.project_root}/outputs

@@ -1,0 +1,39 @@
+name: M1_raw_prompt_bpe_token_ngram_tfidf_logreg
+id: M1
+type: sklearn_tfidf_logistic_regression
+
+input_view: raw_prompt_only
+tokenizer: raw_prompt_byte_bpe_v8k_group_key_train
+tokenized_file: ${paths.tokenized_dir}/if_multi_constraints_upto5.qwen3_4b_instruct_2507.under2048_nontruncated.group_key_seed42.raw_prompt_byte_bpe_v8k.parquet
+
+features:
+  source_column: input_ids
+  token_count_column: raw_prompt_bpe_token_count_full
+  ngram_range: [1, 3]
+  tfidf:
+    max_features: 500000
+    min_df: 2
+    max_df: 1.0
+    sublinear_tf: true
+    norm: l2
+
+classifier:
+  type: logistic_regression
+  C: 1.0
+  penalty: l2
+  solver: saga
+  max_iter: 2000
+  class_weight: balanced
+  threshold: 0.5
+  random_state: ${seed}
+  n_jobs: -1
+
+split:
+  name: group_key_seed42
+  train: train
+  eval: [val, test]
+
+outputs:
+  dir: ${paths.runs_dir}/m1_raw_prompt_bpe_tfidf_logreg_group_key_seed42
+  save_predictions: true
+  top_features: 50

@@ -1,0 +1,7 @@
+id: passk_temp07_k8_max2048
+temperature: 0.7
+top_p: 0.95
+max_new_tokens: 2048
+do_sample: true
+num_return_sequences: 1
+sample_count: 8
