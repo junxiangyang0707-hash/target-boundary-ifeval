@@ -59,32 +59,6 @@ boundary-if/
   pyproject.toml
 ```
 
-## 版本范围
-
-v0.1 包含：
-
-- 英文和中文博客草稿。
-- 博客图片。
-- attribution 和 citation 元数据。
-
-v0.2 包含：
-
-- v0.1 全部内容。
-- 聚合指标表。
-- 博客分析用到的 validation/test predictions。
-- split manifests。
-- 代码、配置、测试和 Docker 文件。
-
-默认不包含：
-
-- raw promptsets
-- target model 原始输出
-- 本地模型 checkpoint
-- 目标模型权重
-- Hugging Face / vLLM cache
-- W&B run 目录
-- 本地 chat logs 和开发过程记录
-
 ## 包含的结果文件
 
 核心表位于 `results/tables/`：

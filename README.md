@@ -67,32 +67,6 @@ boundary-if/
   pyproject.toml
 ```
 
-## Versioned Scope
-
-v0.1 scope:
-
-- English and Chinese blog drafts.
-- Blog figures.
-- Attribution and citation metadata.
-
-v0.2 scope:
-
-- v0.1 materials.
-- Aggregate metrics tables.
-- Validation/test predictions used by blog analyses.
-- Split manifests.
-- Code, configs, tests, and Docker files.
-
-Excluded by design:
-
-- raw promptsets
-- raw target-model responses
-- local model checkpoints
-- target model weights
-- Hugging Face/vLLM caches
-- W&B run directories
-- local chat logs and development notes
-
 ## Included Results
 
 Core tables are in `results/tables/`:
